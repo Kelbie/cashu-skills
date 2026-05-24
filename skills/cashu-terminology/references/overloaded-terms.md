@@ -4,6 +4,8 @@ Overloading is normal in Cashu systems. Do not rename a local term just because 
 
 Qualify the term only when it crosses a boundary, appears in user copy, or remains ambiguous after that context check.
 
+Boundary names are situational, not mandatory prefixes. If a method or field sits inside a Cashu-owned class, module, screen, store, SDK type, or parser branch, names like `paymentRequest` and `request` can be clear enough. Reach for `cashuPaymentRequest`, `encodedCashuPaymentRequest`, or `creq` when the reader would otherwise have to distinguish Cashu from Lightning, LNURL, HTTP, NWC, NFC, or generic request handling.
+
 | Word | Can mean | Infer from context | Qualify at boundaries as |
 | --- | --- | --- | --- |
 | `paymentRequest` | Cashu NUT-18 request, BOLT11 invoice, LNURL `payRequest`/`withdrawRequest`, BIP-321 field, HTTP request, NFC request, NWC invoice field. | Encoded prefix (`creq`, `lnbc`, `bitcoin:`), parser candidate kind, quote method, transport, caller module. | `cashuPaymentRequest`, `lightningInvoice`, `lnurlPayRequest`, `lnurlWithdrawRequest`, `httpRequest`, `nwcRequest`. |
@@ -33,7 +35,7 @@ Qualify the term only when it crosses a boundary, appears in user copy, or remai
 
 | Boundary | Prefer | Avoid |
 | --- | --- | --- |
-| Cashu NUT-18/NUT-26 request | `cashuPaymentRequest`, `encodedCashuPaymentRequest`, `creq` | bare `paymentRequest` when Lightning is nearby |
+| Cashu NUT-18/NUT-26 request | `paymentRequest` inside Cashu-owned context; `cashuPaymentRequest`, `encodedCashuPaymentRequest`, or `creq` at mixed boundaries | bare `paymentRequest` when Lightning, LNURL, HTTP, NWC, or NFC is nearby and no owner/type/prefix clue exists |
 | Cashu request fulfillment | `paymentRequestPayload`, `cashuPaymentPayload` | `token` if it hides `id`, `memo`, `mint`, `unit`, `proofs` |
 | BOLT11 invoice | `lightningInvoice`, `bolt11Invoice` | `request`, `paymentRequest` |
 | BOLT12 offer | `bolt12Offer` | `invoice` |

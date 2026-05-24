@@ -61,45 +61,27 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 
 ## UI Copy
 
-Observed primary UI terms to prefer when they fit:
+Observed user-facing terms to prefer when they fit:
 
-- `Send`
-- `Receive`
-- `Ecash`
-- `Lightning`
-- `Mints`
-- `Send ecash`
-- `Send Ecash`
-- `Receive ecash`
-- `Receive Ecash`
-- `Create invoice`
-- `Get Invoice`
-- `Top up wallet`
-- `Pay Lightning`
-- `Pay invoice`
-- `Pay a Lightning invoice`
-- `Lightning invoice or address`
-- `Scan QR Code`
-- `Bitcoin address`
-- `onchain address`
-- `Seed phrase`
-- `Mint`
-- `Receive to trusted mint`
-- `Receive to selected mint`
-- `Transfer between mints`
-- `inter-mint transfer`
-- `Cashu payment request`
-- `Payment request`
+| Scope | Observed copy | Use when | Notes |
+| --- | --- | --- | --- |
+| Primary actions and tabs | `Send`, `Receive`, `Ecash`, `Lightning`, `Mints`, `Pay`, `Transfer` | Top-level navigation, action menus, and rail pickers. | These work because the surrounding UI supplies context. |
+| Ecash send | `Send ecash`, `Send Ecash`, `Share ecash`, `Share ecash token`, `Cashu token`, `Ecash Token` | Creating, showing, scanning, or sharing a Cashu token. | Use `token` when the encoded object is the thing being handled; use `ecash` when the value is the thing being moved. |
+| Ecash receive | `Receive ecash`, `Receive Ecash`, `Receive to trusted mint`, `Receive to selected mint`, `Swap to a trusted mint`, `Token was redeemed.` | Redeeming an incoming Cashu token or choosing where to receive it. | `redeemed` is a completion state, not a generic receive action. |
+| Lightning receive/top-up | `Top up wallet`, `Create invoice`, `Get Invoice`, `Create invoice to add funds`, `Share lightning invoice`, `Lightning invoice to pay` | Adding value by asking someone to pay a Lightning invoice. | Keep `mint quote` for protocol, recovery, or detailed status. |
+| Lightning pay/cash-out | `Pay Lightning`, `Pay invoice`, `Pay a Lightning invoice`, `Pay bitcoin Lightning invoice with your ecash`, `Lightning invoice or address` | Spending ecash through a mint to pay Lightning. | Prefer `pay` in primary copy; reserve `melt` for technical surfaces. |
+| Payment requests | `Payment request`, `Payment requests`, `Cashu Payment request`, `Create payment request`, `Send payment request`, `Payment request via {transport}` | NUT-18/NUT-26 Cashu payment request flows. | Qualify as Cashu when Lightning, LNURL, NWC, HTTP, or NFC requests are nearby. |
+| Mint selection and trust | `Mint`, `trusted mint`, `unknown mint`, `selected mint`, `active mint`, `untrusted mint` | Choosing, explaining, or warning about the mint that issues or redeems ecash. | Keep trust language tied to actual wallet policy or user choice. |
+| Mint-to-mint movement | `Transfer`, `Transfer between mints`, `inter-mint transfer`, `one trusted mint to another via the Lightning Network` | Moving value between mints in user-facing UI. | Use `swap`, `mint quote`, and `melt quote` for implementation detail. |
+| Scan/input | `Scan QR Code`, `Scan or tap to pay`, `Lightning invoice or address`, `Bitcoin address`, `onchain address` | QR, NFC, paste, or parser surfaces. | Always qualify `address` by rail when multiple address-like inputs are possible. |
+| Backup/recovery | `Seed phrase`, `Restore ecash`, `Recover mint quote`, `Recover melt quote change` | Recovery, backup, and repair tools. | This context can expose more technical terms because the user is fixing wallet state. |
 
-Acceptable in advanced/recovery/debug UI when accurately scoped:
+Technical terms acceptable in advanced/recovery/debug UI when accurately scoped:
 
-- `proofs`
-- `mint quote`
-- `melt quote`
-- `keysets`
-- `NUTs`
-- `fee reserve`
-- `reserved proofs`
-- `pending proofs`
+| Scope | Terms | Use when | Avoid when |
+| --- | --- | --- | --- |
+| Proof inspection and repair | `proofs`, `reserved proofs`, `pending proofs`, `spent proofs`, `unspent proofs` | Recovery tools, proof state checks, backup export, stuck-wallet repair. | Primary send/receive flows where `ecash` is enough. |
+| Quote recovery and protocol status | `mint quote`, `melt quote`, `fee reserve` | Recovering paid-but-unclaimed quotes, melt change, fee diagnostics, protocol detail screens. | Beginner copy for creating or paying invoices. |
+| Mint capabilities | `keysets`, `NUTs` | Mint info, diagnostics, SDK docs, compatibility screens. | Primary onboarding or basic mint selection. |
 
 Avoid in primary UI unless the surface is technical: `melt`, `blind signature`, `proof`, `DLEQ`, `counter`, `keyset`, `NUT-XX`, and unexplained `fee reserve`.

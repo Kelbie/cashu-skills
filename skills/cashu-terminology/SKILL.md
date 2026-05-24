@@ -38,7 +38,7 @@ Keep this skill product-neutral. Do not copy app or product names into durable g
 
 ## Red Flags
 
-- `paymentRequest` without a rail or data-shape clue.
+- `paymentRequest` without an owner, rail, type, prefix, or data-shape clue.
 - `token` used for a single proof, API/auth bearer, model token, design token, or serialized Cashu data without context.
 - `paid` without quote type: mint quote `PAID` is not `ISSUED`; melt quote `PAID` means external payment completed.
 - `pending` without a noun: proof state, quote state, send operation, mint operation, melt operation, UI loading state, or Lightning channel state.
