@@ -25,10 +25,10 @@ Use this reference when a term changes meaning between protocol state, local ope
 
 | Word | Protocol/server use | Wallet/core use | UI/POS use |
 | --- | --- | --- | --- |
-| receive | Mint receives proofs as inputs; wallet swaps token proofs to fresh proofs. | `receive(token)` usually means redeem token into stored proofs. | `Receive ecash`, `Redeem`, `Top up`, or `Get invoice` depending on rail. |
-| send / pay | Wallet constructs token or melt request; mint validates proofs and may pay external target. | Send operations create pending tokens and monitor proof state. | `Send ecash`, `Pay invoice`, `Pay Lightning Address`, `Pay LNURL`. |
+| receive | Mint receives proofs as inputs; wallet swaps token proofs to fresh proofs. | `receive(token)` usually means redeem token into stored proofs. | Observed copy includes `Receive ecash`, `Receive Ecash`, `Receive Lightning`, `Create invoice`, and `Get Invoice`; choose by rail. |
+| send / pay | Wallet constructs token or melt request; mint validates proofs and may pay external target. | Send operations create pending tokens and monitor proof state. | Observed copy includes `Send ecash`, `Share ecash`, `Pay Lightning`, `Pay invoice`, and `Pay a Lightning invoice`; choose by rail. |
 | request | Field name for BOLT11 invoice, BOLT12 offer, onchain instruction, or Cashu payment request depending on method. | Variable names like `paymentRequest` are often overloaded. | Say `Lightning invoice`, `Cashu payment request`, `LNURL pay request`, or `onchain address`. |
-| quote | Protocol quote id and server quote response. | Local operation may have `quoteId`, `operationId`, and history entry id. | `Invoice`, `payment request`, `estimate`, or `quote details` depending on screen. |
+| quote | Protocol quote id and server quote response. | Local operation may have `quoteId`, `operationId`, and history entry id. | `Invoice`, `payment request`, `estimate`, `quote details`, or `recover mint quote` depending on screen. |
 | pending | Proof/quote state. | Local operation/timeline state. | "Waiting", "not claimed yet", "still pending", with the noun. |
 | paid | Quote state with different meaning for mint vs melt. | History state may map `finalized` to payment success. | Use "invoice paid", "ecash issued", or "payment complete". |
 | address | Lightning Address, Nostr address/key, Bitcoin onchain address, Nostr-derived Lightning address, or mint URL. | Detector/route type. | Always qualify. |
@@ -40,8 +40,8 @@ Use this reference when a term changes meaning between protocol state, local ope
 | Protocol/spec | `proof`, `BlindedMessage`, `BlindSignature`, `mint quote`, `melt quote`, `swap`, `unit`, `keyset`, NUT names. | Wire object names, endpoint names, quote/proof states. |
 | SDK/core | `operationId`, `quoteId`, `proofs`, `prepared`, `executing`, `pending`, `finalized`, `reclaim`, `rollback`. | Local lifecycle state and exact owner module naming. |
 | Mint/server | `mint URL`, `method`, `unit`, `keyset`, `pending proofs`, `cached response`, `auth`, `quote state`. | Database/model enum names when documenting storage or APIs. |
-| Wallet UI | `ecash`, `Cashu token`, `send ecash`, `receive ecash`, `redeem token`, `Lightning invoice`, `Lightning Address`, `seed phrase`. | Advanced details screens can expose proof/keyset/counter details when accurately scoped. |
-| NFC/POS | `Cashu payment request`, `allowed mints`, `trusted mint`, `preferred mint`, `unknown mint`, `write token`, `read request`. | Encoded `creq` and token response terms in implementation surfaces. |
+| Wallet UI | `ecash`, `Cashu token`, `Send ecash`, `Receive ecash`, `Top up wallet`, `Create invoice`, `Get Invoice`, `Lightning invoice`, `Lightning Address`, `seed phrase`, `Transfer between mints`. | Advanced details screens can expose proof/keyset/counter details when accurately scoped. |
+| NFC/POS | `Cashu payment request`, `Cashu requests`, `Lightning invoices`, `Scan or tap to pay`, `trusted mint`, `unknown mint`. | Encoded `creq`, NFC tag, and token response terms in implementation surfaces. |
 | Nostr/NWC | `Nostr relays`, `Nostr mint backup`, `Nostr Wallet Connect`, `Lightning address`, `pay_invoice`, `make_invoice`, `lookup_invoice`. | Protocol method names and relay/auth details. |
 
 ## Conflict Resolution

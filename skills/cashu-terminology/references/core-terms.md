@@ -29,7 +29,7 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 | `C_` | Blinded signature point in a `BlindSignature`. | Distinct from unblinded proof `C`. |
 | BlindedMessage | Wallet-created blinded request to a mint; NUT-00 also calls it an `output`. | In UI, avoid "output" unless advanced/debug. |
 | BlindSignature | Mint response over a blinded message; NUT-00 also calls it a `promise`. Wallet unblinds it to become a proof. | Do not call it a final proof before unblinding. |
-| token | Serialized bearer bundle of one or more proofs, usually `cashu...`, `cashu:...`, or an object with `mint`, `proofs`, `memo`, and `unit`. | Ambiguous with API/auth/model/design tokens. Prefer `Cashu token` or `ecash token` in UI. |
+| token | Serialized bearer bundle of one or more proofs, usually `cashu...`, `cashu:...`, or an object with `mint`, `proofs`, `memo`, and `unit`. | Ambiguous with API/auth/model/design tokens. Prefer `Cashu token` when the string/QR/share object matters, and `ecash` when the value matters. |
 | token V3 / token V4 | Cashu token serialization formats. V4 is current; V3 is legacy/deprecated. | Do not use version to mean app transaction version. |
 | DLEQ | Cryptographic proof that a blind signature/proof matches mint keys. Used for offline token verification. | Not a spendable proof and not a payment preimage. |
 | P2PK | Pay-to-Public-Key proof lock requiring a Schnorr signature/witness to spend. | Do not assume a Nostr `npub` is directly a Cashu P2PK key. |
@@ -45,13 +45,13 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 | --- | --- | --- |
 | mint quote | Quote for issuing new ecash after paying the mint's payment request. NUT-04 `quote` is a unique quote id; `request` is usually the external payment request. | BOLT11 mint quote states are `UNPAID`, `PAID`, `ISSUED`. `PAID` means the invoice is paid; `ISSUED` means signatures/proofs were issued. |
 | mint | Verb: issue blind signatures for outputs after a quote is payable. Wallet unblinds signatures into proofs. | Do not say "minted" if the quote is only `PAID`. |
-| minting / issue ecash | User-facing receive/top-up flow. | Protocol docs should still say `mint quote` and `mint`. |
+| minting / issue ecash | Technical or detail copy for turning a paid quote into proofs. | Primary UI usually says `top up`, `create invoice`, or `receive Lightning` depending on the step. Protocol docs should still say `mint quote` and `mint`. |
 | melt quote | Quote for spending proofs through a mint to pay an external target. | Melt quote states are `UNPAID`, `PENDING`, `PAID`. `PENDING` means external payment is in progress; `PAID` means completed. |
 | melt | Spend proofs to pay an external payment request, commonly a BOLT11 invoice. | UI should usually say `pay Lightning invoice` or `withdraw`, not `melt`, unless technical. |
 | fee reserve | Amount reserved by a mint for possible routing/payment fees on melt. | Not the final fee. Distinguish from final fee and returned `change`. |
 | change | Blind signatures returned for over-reserved melt fees or swap remainder. | Not a Bitcoin transaction change output. |
 | payment preimage | Lightning secret returned when a BOLT11 invoice is paid. | Not a Cashu proof, even if a local field is named `proof`. |
-| swap | Cashu operation that invalidates input proofs and returns signatures for new outputs. Used for splitting, consolidating, redeeming a token, reclaiming, P2PK locking, and change. | Do not use `swap` for arbitrary exchange between rails unless the flow actually does Cashu swap plus another rail operation. |
+| swap | Cashu operation that invalidates input proofs and returns signatures for new outputs. Used for splitting, consolidating, redeeming a token, reclaiming, P2PK locking, and change. | Do not use `swap` for arbitrary exchange between rails unless the flow actually does Cashu swap plus another rail operation. For user-facing mint-to-mint movement, consider `transfer`. |
 | send ecash | Create a Cashu token for someone else. May use exact local proofs without a mint call if denominations match. | Sent proofs often become local `pending` until reclaimed, rolled back, or observed as spent. |
 | receive ecash / redeem token | Swap incoming token proofs into fresh wallet proofs. | `receive` can also mean receive Lightning or request a payment; qualify the rail. |
 | pending proofs | Proofs reserved or being processed by the mint. | NUT-07 proof state `PENDING` is protocol state; wallet DB `isPending`/`reserved` can be local state. |
@@ -61,22 +61,45 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 
 ## UI Copy
 
-Prefer in primary UI:
+Observed primary UI terms to prefer when they fit:
 
+- `Send`
+- `Receive`
+- `Ecash`
+- `Lightning`
+- `Mints`
 - `Send ecash`
+- `Send Ecash`
 - `Receive ecash`
-- `Redeem token`
-- `Get invoice`
-- `Issue ecash`
-- `Pay Lightning invoice`
-- `Pay Lightning Address`
-- `Scan QR`
-- `Copy invoice`
-- `Onchain address`
+- `Receive Ecash`
+- `Create invoice`
+- `Get Invoice`
+- `Top up wallet`
+- `Pay Lightning`
+- `Pay invoice`
+- `Pay a Lightning invoice`
+- `Lightning invoice or address`
+- `Scan QR Code`
+- `Bitcoin address`
+- `onchain address`
 - `Seed phrase`
 - `Mint`
-- `Allowed mints`
-- `Preferred mint`
+- `Receive to trusted mint`
+- `Receive to selected mint`
+- `Transfer between mints`
+- `inter-mint transfer`
 - `Cashu payment request`
+- `Payment request`
 
-Avoid in primary UI unless the surface is technical: `melt`, `blind signature`, `proof`, `pending proofs`, `DLEQ`, `counter`, `keyset`, `NUT-XX`, and unexplained `fee reserve`.
+Acceptable in advanced/recovery/debug UI when accurately scoped:
+
+- `proofs`
+- `mint quote`
+- `melt quote`
+- `keysets`
+- `NUTs`
+- `fee reserve`
+- `reserved proofs`
+- `pending proofs`
+
+Avoid in primary UI unless the surface is technical: `melt`, `blind signature`, `proof`, `DLEQ`, `counter`, `keyset`, `NUT-XX`, and unexplained `fee reserve`.

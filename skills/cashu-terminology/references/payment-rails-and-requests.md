@@ -9,7 +9,7 @@ Use this reference when Cashu terms meet Lightning, LNURL, onchain Bitcoin, Nost
 | Cashu payment request | NUT-18 receiver-created request. Sender creates a matching Cashu token and delivers it by the requested transport. |
 | `creqA` | NUT-18 base64url-encoded Cashu payment request. |
 | `creqb` / `CREQB` | NUT-26 Bech32m/TLV encoding of a Cashu payment request. Uppercase is preferred for QR compatibility. |
-| `paymentRequest` | Only acceptable unqualified inside a local Cashu-payment-request module. At boundaries prefer `cashuPaymentRequest`. |
+| `paymentRequest` | Only acceptable unqualified inside a local Cashu-payment-request module or a UI surface where Cashu is the only active rail. At shared boundaries prefer `cashuPaymentRequest`. |
 | payment request payload | NUT-18 sender payload containing `id`, `memo`, `mint`, `unit`, and `proofs`. Distinct from the request itself. |
 | transport | Delivery method in the Cashu payment request. NUT-18/NUT-26 use `nostr`, `post`, or in-band/no transport. |
 | Nostr transport | Cashu payment request transport using a Nostr target, usually encoded as raw x-only pubkey, `npub`, or `nprofile` with relay tags. |
@@ -18,7 +18,7 @@ Use this reference when Cashu terms meet Lightning, LNURL, onchain Bitcoin, Nost
 | NFC handoff | Local exchange where a device reads a Cashu payment request and writes a Cashu token response back through NFC. Do not call the returned token a payment request. |
 | NUT-24 `X-Cashu` | HTTP 402 flow where a server asks for Cashu payment via `X-Cashu` and the client retries with a token. |
 
-Naming rule: use `cashuPaymentRequest` for NUT-18/NUT-26, `paymentRequestPayload` for the fulfillment payload, and `paymentRequest` only where the Cashu meaning is already explicit.
+Naming rule: use `cashuPaymentRequest` for NUT-18/NUT-26, `paymentRequestPayload` for the fulfillment payload, and `paymentRequest` only where the Cashu meaning is already explicit. In user copy, use `Cashu payment request` whenever Lightning, LNURL, NWC, HTTP, or NFC requests are nearby.
 
 ## Bitcoin, Lightning, LNURL, Onchain
 
@@ -58,6 +58,8 @@ Naming rule: use `cashuPaymentRequest` for NUT-18/NUT-26, `paymentRequestPayload
 | NIP-98 auth | HTTP auth event used by some Nostr-integrated services. | Distinct from NUT-21 Clear Auth and OIDC CATs. |
 | Nostr-derived Lightning address | User-facing address derived from Nostr identity and backed by a service or mint integration. | Keep distinct from raw `npub`, Nostr relay URL, and mint URL. |
 | Nostr Wallet Connect / NWC | Nostr-based remote wallet command protocol with methods like `pay_invoice`, `make_invoice`, and `lookup_invoice`. | Not the same as Cashu payment request transport. |
+
+User-copy rule: `Nostr` is a transport or identity layer, not the payment rail by itself. Say `receive ecash via Nostr`, `Cashu payment request via Nostr`, `Nostr mint backup`, or `Nostr Wallet Connect` according to the feature.
 
 ## Onchain Cashu Methods
 

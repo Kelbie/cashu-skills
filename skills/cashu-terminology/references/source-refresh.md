@@ -10,6 +10,17 @@ Use this reference when updating the skill from current source evidence.
 - Re-check live source before relying on drift-prone claims.
 - Exclude unrelated non-Cashu product terminology from Cashu guidance.
 
+## Balanced Local Source Mix
+
+When the user asks for neutral Cashu copy, sample across at least these kinds of sources before changing durable guidance:
+
+- Protocol/SDK source: `cdk` or the Cashu NUTs for exact object names, states, and wire fields.
+- Browser wallet copy: `cashu.me` for web/PWA Cashu and Lightning wording.
+- Mobile wallet copy: `minibits_wallet` for ecash-first mobile payment wording, contacts, NFC, NWC, and recovery copy.
+- Native wallet copy: `macadamia` for iOS Cashu wording, transfer/mint UI, Nostr backup, and token redemption copy.
+
+Use the common pattern across sources as guidance. Treat a term from only one wallet as local product voice unless protocol semantics require it.
+
 ## Source Priority
 
 1. Cashu protocol specs: `github.com/cashubtc/nuts`.
@@ -33,14 +44,14 @@ pending|paid|issued|spent|unspent|prepared|executing|finalized|reclaim|rollback
 token|Cashu token|ecash|send ecash|receive ecash|redeem
 nostr|npub|nprofile|relay|NWC|pay_invoice|make_invoice|lookup_invoice
 onchain|on-chain|bitcoin:|BIP-321|address|fee rate
-NFC|POS|payment request|allowed mints|trusted mint|preferred mint
+NFC|POS|payment request|trusted mint|active mint|selected mint|unknown mint
 ```
 
 ## Refresh Workflow
 
 1. Identify the boundary: protocol, SDK/core, mint/server, wallet UI, NFC/POS, Lightning/LNURL, onchain, Nostr/NWC.
 2. Read the protocol/standard first if the term has a wire meaning.
-3. Sample at least one implementation or UI surface for the target boundary.
+3. Sample at least one implementation or UI surface for the target boundary; for copy guidance, sample at least two wallet UIs when available.
 4. Add durable wording only when it generalizes across sources or is mandated by protocol.
 5. If a term is overloaded, add it to `overloaded-terms.md` with inference clues instead of banning the term.
 6. Keep `SKILL.md` under 200 lines; move detail into references.
