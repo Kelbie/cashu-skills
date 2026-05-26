@@ -9,6 +9,8 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 3. Mint/server behavior: quote, method, unit, keyset, proof, pending proofs, endpoint names.
 4. Wallet UI: user-facing rail and action words.
 
+When a term is a state word, record the owner as part of the term. `UNSPENT` is a proof state, `PAID` on a mint quote is not the same event as `PAID` on a melt quote, and local words like `prepared` or `finalized` are wallet/core operation abstractions.
+
 ## Cashu Primitives
 
 | Term | Use for | Avoid/conflict |
@@ -41,9 +43,9 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 
 ## Minting, Melting, Swapping
 
-| Term | Meaning | States and cautions |
+| Term | Meaning | State owner and cautions |
 | --- | --- | --- |
-| mint quote | Quote for issuing new ecash after paying the mint's payment request. NUT-04 `quote` is a unique quote id; `request` is usually the external payment request. | BOLT11 mint quote states are `UNPAID`, `PAID`, `ISSUED`. `PAID` means the invoice is paid; `ISSUED` means signatures/proofs were issued. |
+| mint quote | Quote for issuing new ecash after paying the mint's payment request. NUT-04 `quote` is a unique quote id; `request` is usually the external payment request. | Mint quote states are `UNPAID`, `PAID`, `ISSUED`. `PAID` means the invoice is paid; `ISSUED` means signatures/proofs were issued. |
 | mint | Verb: issue blind signatures for outputs after a quote is payable. Wallet unblinds signatures into proofs. | Do not say "minted" if the quote is only `PAID`. |
 | minting / issue ecash | Technical or detail copy for turning a paid quote into proofs. | Primary UI usually says `top up`, `create invoice`, or `receive Lightning` depending on the step. Protocol docs should still say `mint quote` and `mint`. |
 | melt quote | Quote for spending proofs through a mint to pay an external target. | Melt quote states are `UNPAID`, `PENDING`, `PAID`. `PENDING` means external payment is in progress; `PAID` means completed. |
@@ -54,7 +56,7 @@ Use this reference for Cashu primitives, minting, melting, swapping, and user-fa
 | swap | Cashu operation that invalidates input proofs and returns signatures for new outputs. Used for splitting, consolidating, redeeming a token, reclaiming, P2PK locking, and change. | Do not use `swap` for arbitrary exchange between rails unless the flow actually does Cashu swap plus another rail operation. For user-facing mint-to-mint movement, consider `transfer`. |
 | send ecash | Create a Cashu token for someone else. May use exact local proofs without a mint call if denominations match. | Sent proofs often become local `pending` until reclaimed, rolled back, or observed as spent. |
 | receive ecash / redeem token | Swap incoming token proofs into fresh wallet proofs. | `receive` can also mean receive Lightning or request a payment; qualify the rail. |
-| pending proofs | Proofs reserved or being processed by the mint. | NUT-07 proof state `PENDING` is protocol state; wallet DB `isPending`/`reserved` can be local state. |
+| pending proofs | Proofs reserved locally or being processed by the mint. | NUT-07 proof state `PENDING` is protocol state; wallet DB `isPending`/`reserved` is local lifecycle state. |
 | batched minting | NUT-29 all-or-nothing minting of multiple paid quotes with `quotes`, `quote_amounts`, `outputs`, `signatures`. | Same method and unit; do not describe as generic batch payment. |
 | cached responses | NUT-19 mint/server cache for successful responses to critical operations. | Not app cache or HTTP CDN cache. |
 | WebSocket subscriptions | NUT-17 quote/proof updates by subscription kind, e.g. `bolt11_mint_quote`, `bolt11_melt_quote`, `proof_state`. | `subId` is wallet-generated; do not confuse with JSON-RPC request id. |

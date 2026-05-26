@@ -40,7 +40,8 @@ lightningInvoice|bolt11|invoice|BOLT11|BOLT12
 lnurl|LNURL|payRequest|withdrawRequest|Lightning Address
 proof|proofs|BlindedMessage|BlindSignature|keyset|DLEQ
 mint quote|mintQuote|melt quote|meltQuote|fee_reserve|feeReserve
-pending|paid|issued|spent|unspent|prepared|executing|finalized|reclaim|rollback
+UNSPENT|PENDING|SPENT|UNPAID|PAID|ISSUED|unspent|pending proof|spent proof|unpaid|paid quote|issued quote
+prepared|executing|finalized|reclaim|rollback|reserved|isPending
 token|Cashu token|ecash|send ecash|receive ecash|redeem
 nostr|npub|nprofile|relay|NWC|pay_invoice|make_invoice|lookup_invoice
 onchain|on-chain|bitcoin:|BIP-321|address|fee rate
@@ -51,11 +52,12 @@ NFC|POS|payment request|trusted mint|active mint|selected mint|unknown mint
 
 1. Identify the boundary: protocol, SDK/core, mint/server, wallet UI, NFC/POS, Lightning/LNURL, onchain, Nostr/NWC.
 2. Read the protocol/standard first if the term has a wire meaning.
-3. Sample at least one implementation or UI surface for the target boundary; for copy guidance, sample at least two wallet UIs when available.
-4. Add durable wording only when it generalizes across sources or is mandated by protocol.
-5. If a term is overloaded, add it to `overloaded-terms.md` with inference clues instead of banning the term.
-6. Keep `SKILL.md` under 200 lines; move detail into references.
-7. Run validation checks before finishing:
+3. For state words, capture the owner: proof state, mint quote state, melt quote state, local operation lifecycle, UI timeline, or external rail state.
+4. Sample at least one implementation or UI surface for the target boundary; for copy guidance, sample at least two wallet UIs when available.
+5. Add durable wording only when it generalizes across sources or is mandated by protocol.
+6. If a term is overloaded, add it to `overloaded-terms.md` with inference clues instead of banning the term.
+7. Keep `SKILL.md` under 200 lines; move detail into references.
+8. Run validation checks before finishing:
 
 ```sh
 find skills/cashu-terminology -name '*.md' -print

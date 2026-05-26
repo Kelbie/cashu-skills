@@ -22,10 +22,11 @@ Keep this skill product-neutral. Do not copy app or product names into durable g
 1. Classify the term by owner and boundary: protocol, SDK/core, mint/server, wallet UI, NFC/POS, Lightning/LNURL, onchain, Nostr/NWC, or payment transport.
 2. For overloaded terms, infer the intended meaning from owner module, route/screen, rail, operation type, state machine, data shape, and nearby fields before renaming anything.
 3. Preserve local terms inside their owning module when the meaning is clear. Qualify terms at shared boundaries, in user copy, and anywhere ambiguity leaks.
-4. Prefer protocol wording in specs, shared APIs, SDKs, and server code: `proof`, `proofs`, `BlindedMessage`, `BlindSignature`, `mint quote`, `melt quote`, `swap`, `keyset`, `unit`.
-5. Prefer user-facing wording in primary UI: `ecash`, `Cashu token`, `send ecash`, `receive ecash`, `redeem token`, `Lightning invoice`, `onchain address`.
-6. Before copying local variable names into UI copy, use the copy ladder in [Copy principles](references/copy-principles.md).
-7. Keep adjacent rails distinct. A Cashu payment request, BOLT11 invoice, LNURL request, BIP-321 parameter, HTTP request, NWC request, and NFC request can all be "requests" in local context.
+4. Mark whether state words are protocol/wire terms or useful local abstractions. `UNSPENT`, `PENDING`, `SPENT`, `UNPAID`, `PAID`, and `ISSUED` can be protocol or quote-state words; `prepared`, `executing`, `finalized`, `rolled_back`, and `reclaim` are local operation vocabulary unless a source explicitly defines otherwise.
+5. Prefer protocol wording in specs, shared APIs, SDKs, and server code: `proof`, `proofs`, `BlindedMessage`, `BlindSignature`, `mint quote`, `melt quote`, `swap`, `keyset`, `unit`.
+6. Prefer user-facing wording in primary UI: `ecash`, `Cashu token`, `send ecash`, `receive ecash`, `redeem token`, `Lightning invoice`, `onchain address`.
+7. Before copying local variable names into UI copy, use the copy ladder in [Copy principles](references/copy-principles.md).
+8. Keep adjacent rails distinct. A Cashu payment request, BOLT11 invoice, LNURL request, BIP-321 parameter, HTTP request, NWC request, and NFC request can all be "requests" in local context.
 
 ## References
 
@@ -42,4 +43,5 @@ Keep this skill product-neutral. Do not copy app or product names into durable g
 - `token` used for a single proof, API/auth bearer, model token, design token, or serialized Cashu data without context.
 - `paid` without quote type: mint quote `PAID` is not `ISSUED`; melt quote `PAID` means external payment completed.
 - `pending` without a noun: proof state, quote state, send operation, mint operation, melt operation, UI loading state, or Lightning channel state.
+- `prepared`, `executing`, `finalized`, `rolled_back`, or `reclaim` described as protocol states instead of local operation abstractions.
 - User copy that says `receive`, `send`, `request`, `invoice`, or `address` without identifying ecash, Lightning, onchain, LNURL, Nostr, NWC, or Cashu payment request context.

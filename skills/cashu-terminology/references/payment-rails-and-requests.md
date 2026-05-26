@@ -73,6 +73,8 @@ User-copy rule: `Nostr` is a transport or identity layer, not the payment rail b
 
 Use `onchain` as a Cashu payment method only when the mint/library actually supports it.
 
+Separate protocol method support from app-level observation. A mint quote can use an onchain method, while `onchain payment observed` is a wallet/backend lifecycle event inferred from mempool or chain data.
+
 | Term | Meaning |
 | --- | --- |
 | onchain mint quote | Mint quote whose `request` is an onchain Bitcoin payment instruction/address rather than a Lightning invoice. |
